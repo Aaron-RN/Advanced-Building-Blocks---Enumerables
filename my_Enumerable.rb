@@ -11,9 +11,19 @@
         yield(self[i],i)
       end
     end
+
+    def my_select
+      conditionMet = []
+      self.my_each do |item|
+        if yield(item)
+          conditionMet << item
+        end
+      end
+      conditionMet
+    end
   end
 
-  arrT = [10,20,30,40]
+  arrT = [11,20,33,40]
   puts ".each"
   arrT.each do |item|
     puts item
@@ -33,3 +43,8 @@
   arrT.my_each_with_index do |item, i|
     puts item, i
   end
+
+  puts "\n.select"
+  puts arrT.select {|item| item.odd?}
+  puts ".my_select"
+  puts arrT.my_select {|item| item.odd?}
