@@ -77,6 +77,40 @@
       end
       return newArray
     end
+
+    def my_inject(operator = nil)
+      finalValue = 0
+      self.my_each_with_index do |item, i|
+        if i == 0
+          finalValue = item
+          next
+        end
+        if operator!=nil && !block_given?
+          if operator.to_s == "+"
+            finalValue = finalValue + item
+          elsif operator.to_s == "-"
+            finalValue = finalValue - item
+          elsif operator.to_s == "*"
+            finalValue = finalValue * item
+          elsif operator.to_s == "/"
+            finalValue = finalValue / item
+          elsif operator.to_s == "%"
+            finalValue = finalValue % item
+          elsif operator.to_s == "**"
+            finalValue = finalValue ** item
+          end
+        else
+          if block_given?
+            finalValue = yield(finalValue, item)
+          end
+        end
+      end
+      return finalValue
+    end
+
+    def multiply_els
+      self.my_inject(:*)
+    end
   end
 
   arrT = [11,20,33,40]
@@ -135,3 +169,13 @@
   puts "arrT.map {|item| item - 1}: #{arrT.map {|item| item - 1}}"
   puts ".my_map"
   puts "arrT.my_map {|item| item - 1}: #{arrT.my_map {|item| item - 1}}"
+
+  puts "\n.inject"
+  puts "arrT.inject(:+) = #{arrT.inject(:+)}"
+  puts "arrT.inject {|sum, n| sum + n} = #{arrT.inject {|sum, n| sum - n}}"
+  puts ".my_inject"
+  puts "arrT.my_inject(:+) = #{arrT.my_inject(:+)}"
+  puts "arrT.my_inject {|sum, n| sum + n} = #{arrT.my_inject {|sum, n| sum - n}}"
+
+  puts "\n.multiply_els"
+  puts arrT.multiply_els
