@@ -48,6 +48,26 @@
       end
       return false
     end
+
+    def my_count(value = nil)
+      counter = 0
+      self.my_each do |item|
+        if value == nil &&  !block_given?
+          counter += 1
+        else
+          if block_given?
+            if yield(item)
+              counter += 1
+            end
+          else
+            if item == value
+              counter += 1
+            end
+          end
+        end
+      end
+      return counter
+    end
   end
 
   arrT = [11,20,33,40]
@@ -90,3 +110,14 @@
   puts arrT.none? {|item| item < 10}
   puts ".my_none"
   puts arrT.my_none? {|item| item < 10}
+
+  puts "\n.count"
+  puts "arrT = [#{arrT.join(",")}]"
+  puts "arrT.count: #{arrT.count}"
+  puts "arrT.count(20): #{arrT.count(20)}"
+  puts "arrT.count(|item| item > 20): #{arrT.count {|item| item > 20}}"
+  puts ".my_count"
+  puts "arrT = [#{arrT.join(",")}]"
+  puts "arrT.my_count: #{arrT.my_count}"
+  puts "arrT.my_count(20): #{arrT.my_count(20)}"
+  puts "arrT.my_count(|item| item > 20): #{arrT.my_count {|item| item > 20}}"
