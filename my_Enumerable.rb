@@ -69,11 +69,15 @@
       return counter
     end
 
-    def my_map
-      return __method__ if !block_given?
+    def my_map(proc = nil)
+      #return __method__ if !block_given?
       newArray = []
       self.my_each do |item|
-          newArray << yield(item)
+          if proc
+            newArray << proc.call(item)
+          else
+            newArray << yield(item)
+          end
       end
       return newArray
     end
@@ -179,3 +183,8 @@
 
   puts "\n.multiply_els"
   puts arrT.multiply_els
+
+  puts "\n.my_map proc"
+  proc = Proc.new {|item| item - 2}
+  puts "proc = Proc.new {|item| item - 2}"
+  puts "arrT.my_map(proc): #{arrT.my_map(proc)}"
