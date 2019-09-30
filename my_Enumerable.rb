@@ -30,6 +30,15 @@
       end
       return true
     end
+
+    def my_any?
+      self.my_each do |item|
+        if yield(item)
+          return true
+        end
+      end
+      return false
+    end
   end
 
   arrT = [11,20,33,40]
@@ -59,6 +68,11 @@
   puts arrT.my_select {|item| item.odd?}
 
   puts "\n.all?"
-  puts arrT.all? {|item| item >= 10}
+  puts arrT.all? {|item| item.even?}
   puts ".my_all?"
-  puts arrT.my_all? {|item| item >= 10}
+  puts arrT.my_all? {|item| item.even?}
+
+  puts "\n.any?"
+  puts arrT.any? {|item| item.even?}
+  puts ".my_any"
+  puts arrT.my_any? {|item| item.even?}
