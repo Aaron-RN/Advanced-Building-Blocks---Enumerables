@@ -39,6 +39,15 @@
       end
       return false
     end
+
+    def my_none?
+      self.my_each do |item|
+        unless yield(item)
+          return true
+        end
+      end
+      return false
+    end
   end
 
   arrT = [11,20,33,40]
@@ -76,3 +85,8 @@
   puts arrT.any? {|item| item.even?}
   puts ".my_any"
   puts arrT.my_any? {|item| item.even?}
+
+  puts "\n.none"
+  puts arrT.none? {|item| item < 10}
+  puts ".my_none"
+  puts arrT.my_none? {|item| item < 10}
