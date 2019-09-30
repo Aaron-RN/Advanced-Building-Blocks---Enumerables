@@ -21,6 +21,15 @@
       end
       conditionMet
     end
+
+    def my_all?
+      self.my_each do |item|
+        unless yield(item)
+          return false
+        end
+      end
+      return true
+    end
   end
 
   arrT = [11,20,33,40]
@@ -48,3 +57,8 @@
   puts arrT.select {|item| item.odd?}
   puts ".my_select"
   puts arrT.my_select {|item| item.odd?}
+
+  puts "\n.all?"
+  puts arrT.all? {|item| item >= 10}
+  puts ".my_all?"
+  puts arrT.my_all? {|item| item >= 10}
