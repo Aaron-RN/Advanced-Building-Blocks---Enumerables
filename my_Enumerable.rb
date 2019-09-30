@@ -68,6 +68,15 @@
       end
       return counter
     end
+
+    def my_map
+      return __method__ if !block_given?
+      newArray = []
+      self.my_each do |item|
+          newArray << yield(item)
+      end
+      return newArray
+    end
   end
 
   arrT = [11,20,33,40]
@@ -121,3 +130,8 @@
   puts "arrT.my_count: #{arrT.my_count}"
   puts "arrT.my_count(20): #{arrT.my_count(20)}"
   puts "arrT.my_count(|item| item > 20): #{arrT.my_count {|item| item > 20}}"
+
+  puts "\n.map"
+  puts "arrT.map {|item| item - 1}: #{arrT.map {|item| item - 1}}"
+  puts ".my_map"
+  puts "arrT.my_map {|item| item - 1}: #{arrT.my_map {|item| item - 1}}"
