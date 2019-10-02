@@ -111,7 +111,7 @@
     end
 
     def my_map(proc = nil)
-      return to_enum(:double) unless block_given? && !proc
+      return to_enum(:double) unless block_given? || !proc
       newArray = []
       self.my_each do |item|
           if proc
