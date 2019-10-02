@@ -128,14 +128,10 @@
         operator = initial
         initial = 0
       end
-      finalValue = 0
+      finalValue = initial
       arrayToCalc = []
       arrayToCalc = self.to_a
-      finalValue = arrayToCalc[initial]
-      arrayToCalc.my_each_with_index do |item, i|
-        if i == initial
-          next
-        end
+      arrayToCalc.my_each do |item|
         if operator!=nil && !block_given?
           finalValue = finalValue.public_send(operator.to_sym, item)
         else
