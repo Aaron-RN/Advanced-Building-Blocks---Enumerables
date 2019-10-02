@@ -81,7 +81,7 @@
               return false
             end
           else
-            if item == nil||item == false
+            if item == true
               return false
             end
           end
