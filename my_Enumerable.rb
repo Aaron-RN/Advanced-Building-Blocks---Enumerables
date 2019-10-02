@@ -60,7 +60,7 @@
               return true
             end
           else
-            if item == nil||item == false
+            if item == true
               return true
             end
           end
@@ -147,3 +147,18 @@
       self.my_inject(:*)
     end
   end
+  
+  puts %w[ant bear cat].any? { |word| word.length >= 3 } #=> true
+  puts %w[ant bear cat].any? { |word| word.length >= 4 } #=> true
+  puts %w[ant bear cat].any?(/d/)                        #=> false
+  puts [nil, true, 99].any?(Integer)                     #=> true
+  puts [nil, true, 99].any?                              #=> true
+  puts [].any?                                           #=> false
+
+  puts "\nmy_any?"
+  puts %w[ant bear cat].my_any? { |word| word.length >= 3 } #=> true
+  puts %w[ant bear cat].my_any? { |word| word.length >= 4 } #=> true
+  puts %w[ant bear cat].my_any?(/d/)                        #=> false
+  puts [nil, true, 99].my_any?(Integer)                     #=> true
+  puts [nil, true, 99].my_any?                              #=> true
+  puts [].my_any?                                           #=> false
