@@ -140,7 +140,6 @@
           finalValue = finalValue.public_send(operator.to_sym, item)
         else
           if block_given?
-          # if yield(arr[counter], arr[counter + 1]).positive?
             finalValue = yield(finalValue, item)
           end
         end
