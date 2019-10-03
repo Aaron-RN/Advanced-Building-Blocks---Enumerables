@@ -123,19 +123,24 @@
       return newArray
     end
 
-    def my_inject(initial = 0, operator = nil)
+    def my_inject(initial = nil, operator = nil)
       if initial.class == Symbol
         operator = initial
         initial = 0
       end
-      finalValue = initial
+      finalValue = nil
       arrayToCalc = []
       arrayToCalc = self.to_a
+      initial ? finalValue = initial : finalValue = arrayToCalc[0]
       arrayToCalc.my_each do |item|
+        if item == finalValue
+          next
+        end
         if operator!=nil && !block_given?
           finalValue = finalValue.public_send(operator.to_sym, item)
         else
           if block_given?
+          # if yield(arr[counter], arr[counter + 1]).positive?
             finalValue = yield(finalValue, item)
           end
         end
