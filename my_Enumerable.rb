@@ -34,10 +34,9 @@ module Enumerable
       if block_given?
         return false unless yield(item)
       elsif pattern
-          return false unless pattern === item
-        else
-          return false if item.nil? || item == false
-        end
+        return false unless pattern === item
+      else
+        return false if item.nil? || item == false
       end
     end
     true
@@ -47,12 +46,10 @@ module Enumerable
     my_each do |item|
       if block_given?
         return true if yield(item)
+      elsif pattern
+        return true if pattern === item
       else
-        if pattern
-          return true if pattern === item
-        else
-          return true if item == true
-        end
+        return true if item == true
       end
     end
     false
@@ -62,12 +59,10 @@ module Enumerable
     my_each do |item|
       if block_given?
         return false if yield(item)
+      elsif pattern
+        return false if pattern === item
       else
-        if pattern
-          return false if pattern === item
-        else
-          return false if item == true
-        end
+        return false if item == true
       end
     end
     true
@@ -78,12 +73,10 @@ module Enumerable
     my_each do |item|
       if value.nil? && !block_given?
         counter += 1
+      elsif block_given?
+        counter += 1 if yield(item)
       else
-        if block_given?
-          counter += 1 if yield(item)
-        else
-          counter += 1 if item == value
-        end
+        counter += 1 if item == value
       end
     end
     counter
@@ -92,15 +85,15 @@ module Enumerable
   def my_map(proc = nil)
     return to_enum(:double) if !block_given? && !proc
 
-    newArray = []
+    new_array = []
     my_each do |item|
-      newArray << if proc
-                    proc.call(item)
-                  else
-                    yield(item)
-                  end
+      new_array << if proc
+                     proc.call(item)
+                   else
+                     yield(item)
+                   end
     end
-    newArray
+    new_array
   end
 
   def my_inject(initial = nil, operator = nil)
@@ -108,22 +101,18 @@ module Enumerable
       operator = initial
       initial = 0
     end
-    skipIndex = nil
-    finalValue = nil
-    arrayToCalc = []
-    arrayToCalc = to_a
-    finalValue = initial || arrayToCalc[0]
-    skipIndex = 0 unless initial
-    arrayToCalc.my_each_with_index do |item, i|
-      next if i == skipIndex
+    skip_index = nil
+    final_value = nil
+    array_to_calc = to_a
+    final_value = initial || array_to_calc[0]
+    skip_index = 0 unless initial
+    array_to_calc.my_each_with_index do |item, i|
+      next if i == skip_index
 
       if !operator.nil? && !block_given?
-        finalValue = finalValue.public_send(operator.to_sym, item)
-      else
-        if block_given?
-          # if yield(arr[counter], arr[counter + 1]).positive?
-          finalValue = yield(finalValue, item)
-        end
+        final_value = final_value.public_send(operator.to_sym, item)
+      elsif block_given?
+        final_value = yield(final_value, item)
       end
     end
     finalValue
