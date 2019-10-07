@@ -115,7 +115,7 @@ module Enumerable
         final_value = yield(final_value, item)
       end
     end
-    finalValue
+    final_value
   end
 
   def multiply_els
