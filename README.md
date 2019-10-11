@@ -24,9 +24,18 @@ Add your new methods onto the existing Enumerable module. Ruby makes this easy f
 11. Modify your #my_map method to take a proc instead.
 12. Modify your #my_map method to take either a proc or a block. It won’t be necessary to apply both a proc and a block in the same #my_map call since you could get the same effect by chaining together one #my_map call with the block and one with the proc. This approach is also clearer, since the user doesn’t have to remember whether the proc or block will be run first. So if both a proc and a block are given, only execute the proc.
 
-Quick Tips:
+## Added RSpec framework for Test Driven Development (TDD)
 
-Remember yield and the #call method.
+Test-driven development (TDD) is a software development process that relies on the repetition of a very short development cycle: first the developer writes an (initially failing) automated test case that defines a desired improvement or new function, then produces the minimum amount of code to pass that test, and finally refactors the new code to acceptable standards.
+
+The following sequence of steps is generally followed:
+
+- Add a test  
+- Run all tests and see if the new one fails  
+- Write some code  
+- Run tests  
+- Refactor code  
+- Repeat  
 
 ## Author: 
 ### Aaron
